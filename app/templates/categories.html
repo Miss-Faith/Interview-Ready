@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% import 'macros.html' as macro %}
 
 {% block content %}
 
@@ -54,7 +55,7 @@
         {{ macro.display(pitches) }}
       </div>
       <div  class="container tab-pane fade" id="#s&s"><br>
-        {{ macro.display(short&sweet)}}
+        {{ macro.display(short_sweet)}}
       </div>
       <div  class="container tab-pane fade" id="#s&l"><br>
         {{ macro.display(customer_story) }}
