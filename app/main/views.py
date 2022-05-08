@@ -1,8 +1,8 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required,current_user
-from ..models import Comment,User
-from .forms import CommentForm,UpdateProfile
+from ..models import *
+from .forms import CommentForm,UpdateProfile,PitchForm
 from .. import db,photos
 
 # Views
@@ -16,40 +16,36 @@ def index():
 
 @main.route('/categories/')
 def categories():
-
     '''
     View categories page function that returns the pitch details page
     '''
+    pitches = Pitch.query.all()
+    short&sweet = Pitch.query.filter_by(category = 'short&sweet').all() 
+    customer_story = Pitch.query.filter_by(category = 'customer_story').all()
+    Humour = Pitch.query.filter_by(category = 'Humour').all()
+    return render_template('categories.html',short&sweet = short&sweet,customer_story = customer_story, pitches = pitches,Humour= Humour)
 
-    return render_template('categories.html')
-
-@main.route('/categories/humour')
-def humour():
-
-    '''
-    View humour pitch page function that returns the various pitch in humour category
-    '''
-    
-    return render_template('humour.html')
-
-@main.route('/categories/humour/comment/new/<id>', methods = ['GET','POST'])
+@main.route('/comment/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
     form = CommentForm()
+    pitch = Pitch.query.get(id)
+    all_comments = Comment.query.filter_by(id = id).all()
 
     if form.validate_on_submit():
-        title = form.title.data
+        id = id
         comment = form.comment.data
-
+        user_id = current_user._get_current_object().id
         # Updated comment instance
-        new_comment = Comment(pitch_id=pitch.id,pitch_title=title,pitch_comment=comment,user=current_user)
+        new_comment = Comment(id=id,title=title,pitch_comment=comment,posted=posted,user_id=user_id)
 
         # save comment method
         new_comment.save_comment()
-        return redirect(url_for('.humour',id = pitch.id ))
-
+        
+        return redirect(url_for('.comment',id = id ))
+    
     title = f'{pitch.title} comment'
-    return render_template('new_comment.html',title = title, comment_form=form)
+    return render_template('new_comment.html',title = title, form=form, pitch = pitch, all_comments=all_comments)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
