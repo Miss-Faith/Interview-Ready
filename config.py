@@ -32,11 +32,11 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:***@localhost/-----'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:okjapass@localhost/interview'
     DEBUG = True
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:****@localhost/-----'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:okjapass@localhost/interview'
 
 
 config_options = {

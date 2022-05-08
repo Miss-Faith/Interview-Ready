@@ -17,6 +17,7 @@ flask-mail = "*"
 flask-migrate = "==2.7.0"
 flask-wtf = "*"
 wtforms = {extras = ["email"], version = "*"}
+flask-script = "*"
 
 [dev-packages]
 
