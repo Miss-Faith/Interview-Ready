@@ -1,4 +1,5 @@
 from . import db
+from werkzeug.security import generate_password_hash,check_password_hash
 from . import login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -11,26 +12,37 @@ class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(),index = True)
+    username = db.Column(db.String(255),unique = True,index = True)
     email = db.Column(db.String(255),unique = True,index = True)
+
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    password_secure = db.Column(db.String())
+    secure_password = db.Column(db.String(255),nullable = False)
 
+    pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
 
-    pass_secure = db.Column(db.String(255))
     @property
-    def password(self):
+    def set_password(self):
         raise AttributeError('You cannot read the password attribute')
 
     @password.setter
     def password(self, password):
-        self.pass_secure = generate_password_hash(password)
+        self.secure_password = generate_password_hash(password)
 
     def verify_password(self,password):
-        return check_password_hash(self.pass_secure,password)
+        return check_password_hash(self.secure_password,password)
+
+    def save_u(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def __repr__(self):
         return f'User {self.username}'
@@ -50,12 +62,11 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer,primary_key = True)
-    movie_id = db.Column(db.Integer)
-    movie_title = db.Column(db.String)
-    image_path = db.Column(db.String)
-    movie_comment = db.Column(db.String)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'),nullable = False)
+    title = db.Column(db.String)
+    comment = db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"),nullable = False)
 
     def save_comment(self):
         db.session.add(self)
@@ -63,6 +74,9 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,id):
-        comments = Comment.query.filter_by(movie_id=id).all()
+        comments = Comment.query.filter_by(id=id).all()
         return comments
+
+    def __repr__(self):
+        return f'comment:{self.comment}'
     
