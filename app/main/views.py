@@ -28,3 +28,7 @@ def humour():
     '''
     
     return render_template('humour.html')
+
+@main.route('/categories/humour/comment/new/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_review(id):
