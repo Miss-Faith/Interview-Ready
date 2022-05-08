@@ -14,7 +14,16 @@ def index():
 def categories():
 
     '''
-    View categories page function that returns the pitch details page and its data
+    View categories page function that returns the pitch details page
     '''
 
     return render_template('categories.html')
+
+@main.route('/categories/humour')
+def humour():
+
+    '''
+    View humour pitch page function that returns the various pitch in humour category
+    '''
+    
+    return render_template('humour.html')
