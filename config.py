@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class Config:
     '''
@@ -6,7 +8,7 @@ class Config:
     '''
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:***@localhost/-----'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
-
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
     #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
