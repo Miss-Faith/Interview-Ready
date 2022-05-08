@@ -9,3 +9,12 @@ def index():
   '''
 
   return render_template('index.html')
+
+@main.route('/categories/')
+def categories():
+
+    '''
+    View categories page function that returns the pitch details page and its data
+    '''
+
+    return render_template('categories.html')
