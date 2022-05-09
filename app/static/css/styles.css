@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Rancho&display=swap');
+
 *{
   font-size: 1.4vw;
+  font-family: 'Rancho', cursive;
 }
+
+p{
+  font-family: 'Rancho', cursive;
+  font-size: large;
+}
+
+body {
+  background-image: url('../images/image (7).jpg');
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+
+}
+
+image-1 {
+  position: center;
+  height: 10px;
+}
+
