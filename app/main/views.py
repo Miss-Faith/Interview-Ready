@@ -20,10 +20,10 @@ def categories():
     View categories page function that returns the pitch details page
     '''
     pitches = Pitch.query.all()
-    short_sweet = Pitch.query.filter_by(category = 'short&sweet').all() 
-    customer_story = Pitch.query.filter_by(category = 'customer_story').all()
-    Humour = Pitch.query.filter_by(category = 'Humour').all()
-    return render_template('categories.html',short_sweet = short_sweet,customer_story = customer_story, pitches = pitches,Humour= Humour)
+    short_simple = Pitch.query.filter_by(category = 'short_simple').all() 
+    story_line = Pitch.query.filter_by(category = 'story_line').all()
+    humour = Pitch.query.filter_by(category = 'humour').all()
+    return render_template('categories.html',short_simple = short_simple,story_line = story_line, pitches = pitches,humour= humour)
 
 @main.route('/create_new', methods = ['POST','GET'])
 @login_required
