@@ -34,33 +34,29 @@ def new_pitch():
         post = form.post.data
         category = form.category.data
         user_id = current_user
+        
         new_pitch_object = Pitch(post=post,user_id=current_user._get_current_object().id,category=category,title=title)
         new_pitch_object.save_pitch()
         return redirect(url_for('main.categories'))
         
     return render_template('create_pitch.html', form = form)
 
-@main.route('/comment/<int:id>', methods = ['GET','POST'])
+@main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
 @login_required
-def new_comment(id):
+def comment(pitch_id):
     form = CommentForm()
-    pitch = Pitch.query.get(id)
-    all_comments = Comment.query.filter_by(id = id).all()
-
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
     if form.validate_on_submit():
-        id = id
-        comment = form.comment.data
+        comment = form.comment.data 
+        pitch_id = pitch_id
         user_id = current_user._get_current_object().id
-        # Updated comment instance
-        new_comment = Comment(id=id,title=title,pitch_comment=comment,posted=posted,user_id=user_id)
-
-        # save comment method
+        new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
         new_comment.save_comment()
-        
-        return redirect(url_for('.comment',id = id ))
-    
-    title = f'{pitch.title} comment'
-    return render_template('new_comment.html',title = title, form=form, pitch = pitch, all_comments=all_comments)
+
+        return redirect(url_for('.comment', pitch_id = pitch_id))
+
+    return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
