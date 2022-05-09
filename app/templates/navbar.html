@@ -4,19 +4,19 @@
       <img src="../static/images/image (7).jpg" alt="logo" width="50" height="50">
     </a>
     <a class="navbar-brand" href="/">
-      Interview <br> Ready?
+      Ready?
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('main.index')}}">All Pitches</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{{url_for('main.categories')}}" id="navbarTogglerDemo02" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Pitches</a>
         </li>
         {% if current_user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.new_pitch')}}">New Pitch</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="{{url_for('main.new_pitch')}}" id="navbarTogglerDemo02" role="button" data-bs-toggle="dropdown" aria-expanded="false">New Pitch</a>
         </li>
         {% endif %}
       </ul>
@@ -24,21 +24,21 @@
         {% if current_user.is_authenticated %}
 
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" style= 'margin-right:30px' data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i>&nbsp;<strong>{{current_user.username}}</strong> </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item" href="{{url_for('main.profile',uname=current_user.username)}}"><i class="far fa-user"></i>&nbsp; My account</a>
-          <a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp; Log out</a>
-        </div>
+          <a class="nav-link dropdown-toggle" style= 'margin-right:30px' role="button" data-bs-toggle="dropdown" id="dropdownMenuLink"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i>&nbsp;<strong>{{current_user.username}}</strong> </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="{{url_for('main.profile',uname=current_user.username)}}"><i class="far fa-user"></i>&nbsp; My account</a></li>
+            <li><a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp; Log out</a></li>
+          </ul>
         </li>
         {% else %}
         <li class="nav-item">
             <a  class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'><i class="fas fa-sign-in-alt"></i>&nbsp; <strong>Log In</strong></a>
         </li>
         <li class="nav-item">
-                <a style= 'margin-right:30px' class="nav-link" href="{{url_for('auth.register')}}"><i class="fas fa-user-plus"></i></i>&nbsp; <strong>Sign Up</strong></a>
-            </li>
+          <a style= 'margin-right:30px' class="nav-link" href="{{url_for('auth.register')}}"><i class="fas fa-user-plus"></i></i>&nbsp; <strong>Sign Up</strong></a>
+        </li>
         {%endif%}
       </ul>
     </div>
