@@ -21,6 +21,7 @@ flask-script = "*"
 flask-bootstrap = "*"
 python-dotenv = "*"
 alembic = "==1.1.0"
+alembic-autogen-check = "*"
 
 [dev-packages]
 
