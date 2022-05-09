@@ -1,5 +1,6 @@
 import os
-
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 class Config:
     '''
@@ -34,11 +35,11 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:okjapass@localhost/interview'
+    SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
     DEBUG = True
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://okja:okjapass@localhost/interview'
+    SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
 
 
 config_options = {
