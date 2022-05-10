@@ -7,10 +7,10 @@ class Config:
     '''
     General configuration parent class
     '''
-   # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    SQLALCHEMY_DATABASE_URI ='postgresql://imrfzlraxpkqnm:ac435e7b9684829d5e89c89bee1a98124e36efc61cdabdaa3e391d84262b9c8e@ec2-3-229-11-55.compute-1.amazonaws.com:5432/df0ci4803u7nda'
-    if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+#    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+#     SQLALCHEMY_DATABASE_URI ='postgresql://imrfzlraxpkqnm:ac435e7b9684829d5e89c89bee1a98124e36efc61cdabdaa3e391d84262b9c8e@ec2-3-229-11-55.compute-1.amazonaws.com:5432/df0ci4803u7nda'
+#     if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+#         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     SQLALCHEMY_TRACK_MODIFICATIONS=True
     #  email configurations
