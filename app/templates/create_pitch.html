@@ -4,12 +4,13 @@
 
 {% block content %}
 
-<div  id="particles-js"  >  
+<div class="text-light">  
   <div class=" row" >
     <div class="col-md-2"></div>
       <div class="col-md-8" id="postform">
+        <br><br>
         <h2 class="text-center">Create Your Pitch Here!</h2>
-        {{wtf.quick_form(form)}}
+        {{wtf.quick_form(form, button_map={'submit':'warning'})}}
       </div>
     <div class="col-md-2"></div>
   </div>

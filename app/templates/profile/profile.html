@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
+  <br><br>
+<div class="row text-white">
 <!-- displaying  Username-->
   <div class="col-md-4">
     <h3> {{user.username| capitalize}} </h3>
@@ -44,7 +45,7 @@
     <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
 
       <input type="file"  name="photo" class="form-control" required>
-      <input type="submit">
+      <input type="submit" class="btn btn-warning">
     </form>
       {% endif %}
   </div>
